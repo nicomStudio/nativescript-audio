@@ -423,15 +423,6 @@ export class TNSPlayer implements TNSPlayerI {
       switch (focusChange) {
         case android.media.AudioManager.AUDIOFOCUS_GAIN:
           TNS_Player_Log('AUDIOFOCUS_GAIN');
-          // Set volume level to desired levels
-          TNS_Player_Log('this._lastPlayerVolume', this._lastPlayerVolume);
-          // if last volume more than 10 just set to 1.0 float
-          if (this._lastPlayerVolume && this._lastPlayerVolume >= 10) {
-            this.volume = 1.0;
-          } else if (this._lastPlayerVolume) {
-            this.volume = parseFloat('0.' + this._lastPlayerVolume.toString());
-          }
-
           this.resume();
           break;
         case android.media.AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
@@ -440,19 +431,15 @@ export class TNSPlayer implements TNSPlayerI {
           break;
         case android.media.AudioManager.AUDIOFOCUS_LOSS:
           TNS_Player_Log('AUDIOFOCUS_LOSS');
-          this.pause();
+          //this.pause();
           break;
         case android.media.AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
           TNS_Player_Log('AUDIOFOCUS_LOSS_TRANSIENT');
           // Temporary loss of audio focus - expect to get it back - you can keep your resources around
-          this.pause();
+          //this.pause();
           break;
         case android.media.AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
           TNS_Player_Log('AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK');
-          // Lower the volume, keep playing
-          this._lastPlayerVolume = this.volume;
-          TNS_Player_Log('this._lastPlayerVolume', this._lastPlayerVolume);
-          this.volume = 0.2;
           break;
       }
     }
